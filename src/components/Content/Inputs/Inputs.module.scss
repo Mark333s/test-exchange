@@ -1,0 +1,38 @@
+.inputsContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 10%;
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
+
+  input {
+    font-size: 18px;
+    padding: 1%;
+    border-bottom: solid 1px;
+    border-top: 1px;
+    border-left: 1px;
+    border-right: 1px;
+  }
+
+  .firstFormControl {
+    width: 10%;
+    height: 10%;
+  }
+
+  ul {
+    li {
+      &.active {
+        font-weight: bold;
+        color: red;
+      }
+    }
+  }
+  .selectContainer {
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+}

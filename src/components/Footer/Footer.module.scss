@@ -1,0 +1,13 @@
+.footerContainer {
+  display: flex;
+  max-height: 100px;
+  min-height: 100px;
+  justify-content: center;
+  align-items: center;
+  border-top: solid 2px;
+  padding: 10px;
+
+  p {
+    text-align: center;
+  }
+}

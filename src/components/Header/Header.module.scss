@@ -1,9 +1,13 @@
 .headerContainer {
   height: 100px;
-  background-color: bisque;
+  border-bottom: solid 2px;
 
   img {
     width: 30px;
     height: 30px;
   }
+}
+
+.contentContainer {
+  margin-left: 5%;
 }

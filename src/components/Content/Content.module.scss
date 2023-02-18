@@ -1,0 +1,15 @@
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+
+  .tableContainer {
+    margin-left: 25%;
+    width: 60%;
+  }
+
+  p {
+    text-align: center;
+  }
+}
