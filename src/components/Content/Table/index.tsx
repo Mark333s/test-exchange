@@ -6,7 +6,7 @@ import { selectCurrencie } from "../../../redux/slices/exchangeSlice";
 import styles from './Table.module.scss';
 
 export const Table: React.FC = () => {
-    const { conversion_rates, conversion_ratesEur } = useSelector(selectCurrencie);
+    const { conversion_rates, conversion_ratesEur, status } = useSelector(selectCurrencie);
     const [CurrencyDate, setCurrencyDate] = useState<string>("Currency/CurrencyDate");
     const [buy, setBuy] = useState<string>("Buy");
     const [sell, setSell] = useState<string>("Sell");
@@ -66,23 +66,35 @@ export const Table: React.FC = () => {
         setEurToUsdSell(value);
     };
 
-    return (
-        <div className={styles.tableContainer}>
-            <div className={styles.tableConteinrSecond}>
-                <input value={CurrencyDate} onChange={(event) => onChangeCurrencyDate(event.target.value)} />
-                <input value={buy} onChange={(event) => onChangeBuy(event.target.value)} />
-                <input value={sell} onChange={(event) => onChangeSell(event.target.value)} />
-                <input value={USDUAH} onChange={(event) => onChangeUSDUAH(event.target.value)} />
-                <input value={usdBuy} onChange={(event) => onChangeUsdBuy(event.target.value)} />
-                <input value={usdSell} onChange={(event) => onChangeUsdSell(event.target.value)} />
-                <input value={EURUAH} onChange={(event) => onChangeEURUAH(event.target.value)} />
-                <input value={eurBuy} onChange={(event) => onChangeEurBuy(event.target.value)} />
-                <input value={eurSell} onChange={(event) => onChangeEurSell(event.target.value)} />
-                <input value={EURUSD} onChange={(event) => onChangeEURUSD(event.target.value)} />
-                <input value={eurToUsdBuy} onChange={(event) => onChangeEurToUsdBuy(event.target.value)} />
-                <input value={eurToUsdSell} onChange={(event) => onChangeEurtoUsdSell(event.target.value)} />
-            </div>
+    useEffect(() => {
+        if (status === 'error') {
 
-        </div>
+        }
+    }, []);
+
+    return (
+        <>
+
+            {status === 'error' ? <p>Something went wrong</p> :
+                <div className={styles.tableContainer}>
+                    <div className={styles.tableConteinrSecond}>    <input value={CurrencyDate} onChange={(event) => onChangeCurrencyDate(event.target.value)} className={styles.input} />
+                        <input value={buy} onChange={(event) => onChangeBuy(event.target.value)} className={styles.input} />
+                        <input value={sell} onChange={(event) => onChangeSell(event.target.value)} className={styles.input} />
+                        <input value={USDUAH} onChange={(event) => onChangeUSDUAH(event.target.value)} className={styles.input} />
+                        <input value={usdBuy} onChange={(event) => onChangeUsdBuy(event.target.value)} className={styles.input} />
+                        <input value={usdSell} onChange={(event) => onChangeUsdSell(event.target.value)} className={styles.input} />
+                        <input value={EURUAH} onChange={(event) => onChangeEURUAH(event.target.value)} className={styles.input} />
+                        <input value={eurBuy} onChange={(event) => onChangeEurBuy(event.target.value)} className={styles.input} />
+                        <input value={eurSell} onChange={(event) => onChangeEurSell(event.target.value)} className={styles.input} />
+                        <input value={EURUSD} onChange={(event) => onChangeEURUSD(event.target.value)} className={styles.input} />
+                        <input value={eurToUsdBuy} onChange={(event) => onChangeEurToUsdBuy(event.target.value)} className={styles.input} />
+                        <input value={eurToUsdSell} onChange={(event) => onChangeEurtoUsdSell(event.target.value)} className={styles.input} />
+                    </div>
+                </div>
+            }
+
+        </>
+
+
     );
 };

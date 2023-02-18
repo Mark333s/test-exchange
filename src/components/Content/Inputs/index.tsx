@@ -14,7 +14,7 @@ import { fetchCurrencies, fetchCurrencieEUR, selectCurrencie } from "../../../re
 const defaultValues = ["UAH", "USD", "EUR"];
 
 export const Inputs: React.FC = () => {
-    const { conversion_rates, status } = useSelector(selectCurrencie);
+    const { conversion_rates } = useSelector(selectCurrencie);
     const dispatch = useAppDispatch();
     const [fromCurrency, setFromCurrency] = useState<string>("UAH");
     const [toCurrency, setToCurrency] = useState<string>("USD");
@@ -23,11 +23,34 @@ export const Inputs: React.FC = () => {
     const [swap, setSwap] = useState<boolean>(false);
 
     const getCurrencies = async () => {
+
+
+        let n = localStorage.getItem('counter');
+        //@ts-ignore
+        if (n === null) {
+            //@ts-ignore
+            n = 0;
+        } else {
+            //@ts-ignore
+            n++;
+        }
+        //@ts-ignore
+        localStorage.setItem("counter", n);
+        //@ts-ignore
+        if (n % 5 !== 0) {
+            const errorParam = 'error';
+            dispatch(fetchCurrencies({ errorParam }));
+            dispatch(fetchCurrencieEUR({ errorParam }));
+        }
+        //@ts-ignore
         dispatch(fetchCurrencies());
+        //@ts-ignore
         dispatch(fetchCurrencieEUR());
+
     };
 
     useEffect(() => {
+
         getCurrencies();
     }, []);
 
@@ -75,7 +98,9 @@ export const Inputs: React.FC = () => {
                                 onChange={(event: React.ChangeEvent<any>) => onChangeFromPrice(event.target.value)}
                                 className={styles.firstInput} />
                         </div>
+                        <div>
 
+                        </div>
                         <SelectComponentChange
                             currency={fromCurrency}
                             onChangeCurrency={setFromCurrency}

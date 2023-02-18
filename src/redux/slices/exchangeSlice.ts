@@ -14,40 +14,46 @@ interface ExchangeSliceState {
   status: Status;
 }
 
+type exchangeParam = {
+  errorParam?: string;
+};
+
 const initialState: ExchangeSliceState = {
   conversion_rates: {},
   conversion_ratesEur: {},
   status: Status.LOADING,
 };
 
-export const fetchCurrencies = createAsyncThunk(
-  "exchange/fetchCurrencies",
-  async () => {
-    const { data } = await axios.get(
-      "https://v6.exchangerate-api.com/v6/2857749dfecf23aa3c2a4261/latest/USD"
-    );
-    return data.conversion_rates;
-  }
-);
+export const fetchCurrencies = createAsyncThunk<
+  ExchangeSliceState,
+  exchangeParam
+>("exchange/fetchCurrencies", async (params) => {
+  const { errorParam } = params;
+  const { data } = await axios.get(
+    `https://v6.exchangerate-api.com/v6/2857749dfecf23aa3c2a4261/latest/USD?${errorParam}`
+  );
+  return data.conversion_rates;
+});
 
-export const fetchCurrencieEUR = createAsyncThunk(
-  "exchange/fetchCurrencieEUR",
-  async () => {
-    const { data } = await axios.get(
-      "https://v6.exchangerate-api.com/v6/2857749dfecf23aa3c2a4261/latest/EUR"
-    );
-    return data.conversion_rates;
-  }
-);
+export const fetchCurrencieEUR = createAsyncThunk<
+  ExchangeSliceState,
+  exchangeParam
+>("exchange/fetchCurrencieEUR", async (params) => {
+  const {errorParam} = params;
+  const { data } = await axios.get(
+    `https://v6.exchangerate-api.com/v6/2857749dfecf23aa3c2a4261/latest/EUR?${errorParam}`
+  );
+  return data.conversion_rates;
+});
 
 export const exchangeSlice = createSlice({
   name: "exchange",
   initialState,
   reducers: {
-    setCurrencies(state, action) {
+    setCurrencies(state, action: PayloadAction<ExchangeSliceState>) {
       state.conversion_rates = action.payload;
     },
-    setCurrencieEUR(state, action) {
+    setCurrencieEUR(state, action: PayloadAction<ExchangeSliceState>) {
       state.conversion_ratesEur = action.payload;
     },
   },

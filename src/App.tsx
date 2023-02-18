@@ -7,7 +7,7 @@ import { Header } from './components/Header';
 
 import './scss/app.scss';
 
-const App = () => {
+const App: React.FC = () => {
 
 
   return (
